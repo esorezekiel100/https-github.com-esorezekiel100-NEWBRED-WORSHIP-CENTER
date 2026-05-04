@@ -33,7 +33,12 @@ const Media = () => {
           className="grid grid-cols-1 lg:grid-cols-12 gap-0 bg-white rounded-[3rem] shadow-2xl overflow-hidden border border-brand-border"
         >
           <div className="lg:col-span-7 relative group cursor-pointer aspect-video lg:aspect-auto">
-            <img src={sermons[0].thumbnail} alt="Featured" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
+            <img 
+              src={sermons[0].thumbnail} 
+              alt="Featured" 
+              loading="lazy" 
+              className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 will-change-transform" 
+            />
             <div className="absolute inset-0 bg-brand-primary/20 flex items-center justify-center">
               <div className="w-24 h-24 bg-white text-brand-primary rounded-[2rem] flex items-center justify-center shadow-2xl scale-90 group-hover:scale-100 transition-all duration-500">
                 <Play size={32} className="ml-1 fill-current" />
@@ -110,7 +115,12 @@ const Media = () => {
               className="group p-2 bg-white border border-brand-border rounded-[2.5rem] hover:border-brand-accent hover:shadow-2xl transition-all"
             >
               <div className="relative h-64 rounded-[2rem] overflow-hidden">
-                <img src={sermon.thumbnail} alt={sermon.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                <img 
+                  src={sermon.thumbnail} 
+                  alt={sermon.title} 
+                  loading="lazy"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 will-change-transform" 
+                />
                 <div className="absolute right-4 bottom-4 glass px-3 py-1.5 rounded-xl text-[10px] font-black text-brand-primary uppercase tracking-widest z-10">
                   {sermon.duration}
                 </div>

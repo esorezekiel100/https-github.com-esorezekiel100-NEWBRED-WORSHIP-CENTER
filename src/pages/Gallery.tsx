@@ -99,7 +99,9 @@ const Gallery = () => {
               <img 
                 src={featuredPhotos[carouselIndex].url} 
                 alt={featuredPhotos[carouselIndex].caption} 
-                className="w-full h-full object-cover"
+                loading="lazy"
+                referrerPolicy="no-referrer"
+                className="w-full h-full object-cover will-change-transform"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-brand-primary via-brand-primary/20 to-transparent" />
               
@@ -204,7 +206,12 @@ const Gallery = () => {
                   className="relative group rounded-[2.5rem] overflow-hidden border border-brand-border bg-white cursor-pointer break-inside-avoid"
                   onClick={() => setSelectedPhoto(photo)}
                 >
-                  <img src={photo.url} alt={photo.caption} className="w-full h-auto transition-transform duration-1000 group-hover:scale-110" />
+                  <img 
+                    src={photo.url} 
+                    alt={photo.caption} 
+                    loading="lazy"
+                    className="w-full h-auto transition-transform duration-1000 group-hover:scale-110 will-change-transform" 
+                  />
                   
                   {/* Hover Overlay */}
                   <div className="absolute inset-0 bg-brand-primary/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-8">

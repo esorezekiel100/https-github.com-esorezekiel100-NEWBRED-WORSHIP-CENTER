@@ -82,7 +82,8 @@ const Live = () => {
               frameBorder="0" 
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
               allowFullScreen
-              className="absolute inset-0"
+              loading="lazy"
+              className="absolute inset-0 will-change-transform"
             ></iframe>
             
             <div className="absolute top-6 left-6 pointer-events-none">

@@ -66,7 +66,7 @@ const Home = () => {
             <motion.div
               key={currentImage}
               initial={{ opacity: 0, scale: 1.15 }}
-              animate={{ opacity: 0.4, scale: 1 }}
+              animate={{ opacity: 0.65, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{ duration: 2.5, ease: [0.16, 1, 0.3, 1] }}
               className="absolute inset-0"
@@ -74,9 +74,8 @@ const Home = () => {
               <img 
                 src={HERO_IMAGES[currentImage]} 
                 alt="Church Culture" 
-                className="w-full h-full object-cover mix-blend-overlay"
+                className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-brand-primary/40 backdrop-blur-[2px]" />
             </motion.div>
           </AnimatePresence>
           
@@ -261,6 +260,165 @@ const Home = () => {
               Explore Our Story <span className="w-12 h-0.5 bg-brand-accent group-hover:w-16 transition-all" />
             </Link>
           </motion.div>
+        </div>
+      </section>
+
+      {/* Sacred Worship Section */}
+      <section className="py-32 px-8 bg-white relative overflow-hidden">
+        <div className="max-w-7xl mx-auto space-y-20">
+          <div className="flex flex-col md:flex-row justify-between items-end gap-8">
+            <div className="space-y-4">
+              <span className="text-brand-accent font-black uppercase tracking-[0.4em] text-[10px]">The Sacred Presence</span>
+              <h2 className="text-5xl md:text-6xl font-black text-brand-primary tracking-tighter">Sacred <span className="text-brand-accent font-display">Worship</span></h2>
+            </div>
+            <p className="text-brand-primary/60 max-w-md text-lg leading-relaxed font-medium">
+              Where deep calls unto deep. Experience the raw, unadulterated presence of God through prophetic worship and spiritual songs.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 h-[800px]">
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              className="md:col-span-8 relative group rounded-[3rem] overflow-hidden"
+            >
+              <img 
+                src="https://images.unsplash.com/photo-1510915361894-db8b60106cb1?q=80&w=1200&auto=format&fit=crop" 
+                className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" 
+                alt="Worship Moment" 
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-brand-primary/80 via-transparent to-transparent opacity-60" />
+              <div className="absolute bottom-12 left-12 text-white">
+                <span className="block text-[10px] font-black uppercase tracking-[0.4em] mb-2">Atmosphere</span>
+                <h3 className="text-3xl font-black tracking-tighter">The Sound of Sovereignty</h3>
+              </div>
+            </motion.div>
+            <div className="md:col-span-4 grid grid-rows-2 gap-8">
+              {[
+                "https://images.unsplash.com/photo-1459749411177-042180ce673c?q=80&w=800&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1516280440614-37939bbacd81?q=80&w=800&auto=format&fit=crop"
+              ].map((img, i) => (
+                <motion.div 
+                  key={i}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: i * 0.2 }}
+                  viewport={{ once: true }}
+                  className="relative group rounded-[2.5rem] overflow-hidden"
+                >
+                  <img 
+                    src={img} 
+                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" 
+                    alt={`Worship ${i}`} 
+                  />
+                  <div className="absolute inset-0 bg-brand-primary/20 group-hover:bg-brand-primary/0 transition-all" />
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* The Living Word Section */}
+      <section className="py-32 px-8 bg-brand-primary relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay" />
+          <motion.div 
+            animate={{ rotate: 360 }}
+            transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[1200px] border border-white/20 rounded-full" 
+          />
+        </div>
+
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center relative z-10">
+          <div className="space-y-10">
+            <div className="space-y-6">
+              <span className="text-brand-accent font-black uppercase tracking-[0.4em] text-[10px] bg-brand-accent/20 px-5 py-2 rounded-full border border-brand-accent/30">Doctrine & Power</span>
+              <h2 className="text-5xl md:text-7xl font-black text-white tracking-tighter leading-[0.9]">The Living <span className="text-brand-accent font-display">Word</span></h2>
+              <p className="text-white/60 text-xl leading-relaxed font-medium">
+                The uncompromised revelation of Jesus Christ. We believe the Word of God is the ultimate authority for kingdom living and spiritual governance.
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {[
+                { title: "Kingdom Mystery", icon: <Shield size={20} /> },
+                { title: "Prophetic Truth", icon: <Target size={20} /> }
+              ].map((item, i) => (
+                <div key={i} className="p-8 bg-white/5 border border-white/10 rounded-[2rem] backdrop-blur-xl group hover:bg-white transition-all">
+                  <div className="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center text-brand-accent group-hover:bg-brand-primary group-hover:text-white transition-colors mb-6">
+                    {item.icon}
+                  </div>
+                  <h4 className="text-white group-hover:text-brand-primary font-black uppercase tracking-widest text-xs transition-colors">{item.title}</h4>
+                </div>
+              ))}
+            </div>
+            
+            <Link to="/media" className="inline-flex items-center gap-6 bg-brand-accent text-white px-12 py-6 rounded-2xl font-black text-xs uppercase tracking-[0.4em] hover:bg-white hover:text-brand-primary transition-all shadow-[0_30px_60px_-15px_rgba(181,126,220,0.4)]">
+              Listen to the Word <ArrowRight size={18} />
+            </Link>
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="relative"
+          >
+            <div className="relative z-10 rounded-[4rem] overflow-hidden shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] border-4 border-white/10">
+              <img 
+                src="https://images.unsplash.com/photo-1504052434569-70ad5836ab65?q=80&w=1200&auto=format&fit=crop" 
+                alt="Teaching the Word" 
+                className="w-full h-[700px] object-cover"
+              />
+              <div className="absolute inset-0 bg-brand-primary/20 mix-blend-multiply" />
+            </div>
+            {/* Design Elements */}
+            <div className="absolute -top-12 -right-12 w-48 h-48 bg-brand-accent/20 rounded-full blur-3xl animate-pulse" />
+            <div className="absolute -bottom-10 -left-10 w-64 h-64 bg-brand-secondary/30 rounded-full blur-3xl" />
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Kingdom Praise Section */}
+      <section className="py-32 px-8 bg-brand-bg relative overflow-hidden">
+        <div className="max-w-7xl mx-auto space-y-20">
+          <div className="text-center space-y-4">
+            <span className="text-brand-secondary font-black uppercase tracking-[0.5em] text-[10px]">The Shout of a King</span>
+            <h2 className="text-5xl md:text-7xl font-black text-brand-primary tracking-tighter">Kingdom <span className="text-brand-accent font-display">Praise</span></h2>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              "https://images.unsplash.com/photo-1493225255756-d9584f8606e9?q=80&w=600&auto=format&fit=crop",
+              "https://images.unsplash.com/photo-1514525253361-bee8a81f40fc?q=80&w=600&auto=format&fit=crop",
+              "https://images.unsplash.com/photo-1527529482837-4698179dc6ce?q=80&w=600&auto=format&fit=crop",
+              "https://images.unsplash.com/photo-1523580494863-6f3031224c94?q=80&w=600&auto=format&fit=crop"
+            ].map((img, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.1 }}
+                viewport={{ once: true }}
+                className="group relative h-[450px] rounded-[3rem] overflow-hidden border border-brand-border bg-white"
+              >
+                <img 
+                  src={img} 
+                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-125" 
+                  alt={`Praise ${i}`} 
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-brand-primary/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-10">
+                  <div className="space-y-2">
+                    <Sparkles className="text-brand-accent mb-4" />
+                    <h4 className="text-white font-black text-lg tracking-tighter uppercase">Unrestrained Joy</h4>
+                    <p className="text-white/40 text-[9px] font-black uppercase tracking-widest">Victory Sound</p>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
