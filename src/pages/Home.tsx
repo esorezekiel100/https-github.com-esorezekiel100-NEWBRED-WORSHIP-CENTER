@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'motion/react';
-import { Calendar, Clock, MapPin, Play, ArrowRight, Heart, Users, Shield, Zap, Quote, Target, Stars, Sparkles } from 'lucide-react';
+import { Calendar, Clock, MapPin, Play, ArrowRight, Heart, Users, Shield, Zap, Quote, Target, Stars, Sparkles, CloudSun, BookOpen } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { events, sermons } from '../mockData';
+import { events, sermons, devotionals } from '../mockData';
 
 const HERO_IMAGES = [
   "https://images.unsplash.com/photo-1510915361894-db8b60106cb1?q=80&w=2000&auto=format&fit=crop", // Worship
@@ -42,6 +42,7 @@ const HERO_CONTENT = [
 
 const Home = () => {
   const [currentImage, setCurrentImage] = useState(0);
+  const latestDevotional = devotionals[0];
   const containerRef = useRef<HTMLElement>(null);
   const { scrollY } = useScroll();
   
@@ -52,7 +53,7 @@ const Home = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentImage((prev) => (prev + 1) % HERO_IMAGES.length);
-    }, 6000);
+    }, 8000); // 8 seconds for better readability
     return () => clearInterval(timer);
   }, []);
 
@@ -65,10 +66,10 @@ const Home = () => {
           <AnimatePresence mode="wait">
             <motion.div
               key={currentImage}
-              initial={{ opacity: 0, scale: 1.15 }}
-              animate={{ opacity: 0.65, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 2.5, ease: [0.16, 1, 0.3, 1] }}
+              initial={{ opacity: 0, scale: 1.1, filter: 'blur(15px)' }}
+              animate={{ opacity: 0.85, scale: 1, filter: 'blur(0px)' }}
+              exit={{ opacity: 0, scale: 1.05, filter: 'blur(10px)' }}
+              transition={{ duration: 2, ease: [0.22, 1, 0.36, 1] }}
               className="absolute inset-0"
             >
               <img 
@@ -79,37 +80,25 @@ const Home = () => {
             </motion.div>
           </AnimatePresence>
           
-          {/* Dynamic Glowing Blobs */}
+          {/* Dynamic Glowing Blobs - Subtler for visibility */}
           <div className="absolute inset-0 overflow-hidden">
             <motion.div 
               animate={{ 
-                scale: [1, 1.4, 1],
-                opacity: [0.3, 0.6, 0.3],
-                x: [0, 100, 0],
-                y: [0, 50, 0],
-                rotate: [0, 180, 360]
+                scale: [1, 1.2, 1],
+                opacity: [0.1, 0.3, 0.1],
+                x: [0, 50, 0],
+                y: [0, 30, 0],
               }}
-              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-              className="absolute -top-1/4 -left-1/4 w-[800px] h-[800px] bg-brand-accent/30 rounded-full blur-[160px] pointer-events-none" 
-            />
-            <motion.div 
-              animate={{ 
-                scale: [1.3, 1, 1.3],
-                opacity: [0.2, 0.5, 0.2],
-                x: [0, -80, 0],
-                y: [0, -100, 0],
-                rotate: [360, 180, 0]
-              }}
-              transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-              className="absolute -bottom-1/4 -right-1/4 w-[900px] h-[900px] bg-brand-secondary/20 rounded-full blur-[180px] pointer-events-none" 
+              transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+              className="absolute -top-1/4 -left-1/4 w-[800px] h-[800px] bg-brand-accent/20 rounded-full blur-[140px] pointer-events-none" 
             />
           </div>
           
           {/* Grain Effect */}
-          <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+          <div className="absolute inset-0 opacity-[0.02] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
           
-          {/* Dark Overlay Gradient */}
-          <div className="absolute inset-0 bg-gradient-to-t from-brand-primary via-brand-primary/70 to-brand-primary/50" />
+          {/* Dark Overlay Gradient - Optimized for Image + Text visibility */}
+          <div className="absolute inset-0 bg-gradient-to-b from-brand-primary/60 via-brand-primary/40 to-brand-primary/90" />
         </motion.div>
 
         <div className="relative max-w-7xl mx-auto px-8 py-20 text-center z-10">
@@ -117,25 +106,50 @@ const Home = () => {
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentImage}
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -40 }}
-                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                variants={{
+                  initial: { opacity: 0, y: 30 },
+                  animate: { 
+                    opacity: 1, 
+                    y: 0,
+                    transition: {
+                      duration: 1.2,
+                      ease: [0.16, 1, 0.3, 1],
+                      staggerChildren: 0.1
+                    }
+                  },
+                  exit: { 
+                    opacity: 0, 
+                    y: -20,
+                    transition: { duration: 0.6 }
+                  }
+                }}
               >
-                <div className="inline-flex items-center gap-3 bg-white/5 backdrop-blur-2xl px-6 py-3 rounded-full border border-white/10 mb-10 shadow-[0_20px_50px_-15px_rgba(0,0,0,0.5)]">
+                <motion.div 
+                  variants={{ initial: { opacity: 0, y: 10 }, animate: { opacity: 1, y: 0 } }}
+                  className="inline-flex items-center gap-3 bg-white/5 backdrop-blur-2xl px-6 py-3 rounded-full border border-white/10 mb-10 shadow-[0_20px_50px_-15px_rgba(0,0,0,0.5)]"
+                >
                   <Stars className="w-4 h-4 text-brand-accent animate-pulse" />
                   <span className="text-white/90 text-[10px] font-black uppercase tracking-[0.5em]">{HERO_CONTENT[currentImage].tag}</span>
-                </div>
+                </motion.div>
                 
-                <h1 className="text-7xl md:text-9xl font-black text-white leading-[0.85] mb-12 max-w-5xl mx-auto tracking-tighter font-display">
+                <motion.h1 
+                  variants={{ initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 } }}
+                  className="text-7xl md:text-9xl font-black text-white leading-[0.85] mb-12 max-w-5xl mx-auto tracking-tighter font-display"
+                >
                   {HERO_CONTENT[currentImage].title.split(' ').map((word, i) => (
                     <span key={i} className={i === 1 ? 'block text-brand-accent' : 'block'}>{word}</span>
                   ))}
-                </h1>
+                </motion.h1>
                 
-                <p className="text-xl md:text-2xl text-white/60 max-w-3xl mx-auto mb-16 leading-relaxed font-medium tracking-tight">
+                <motion.p 
+                  variants={{ initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 } }}
+                  className="text-xl md:text-2xl text-white/60 max-w-3xl mx-auto mb-16 leading-relaxed font-medium tracking-tight"
+                >
                   {HERO_CONTENT[currentImage].desc}
-                </p>
+                </motion.p>
               </motion.div>
             </AnimatePresence>
               
@@ -163,16 +177,19 @@ const Home = () => {
               <button
                 key={i}
                 onClick={() => setCurrentImage(i)}
-                className="group relative py-4 px-2 focus:outline-none"
+                className="group relative h-12 flex items-center px-2 focus:outline-none"
                 aria-label={`Go to slide ${i + 1}`}
               >
-                <div className={`h-1.5 transition-all duration-700 rounded-full bg-white relative overflow-hidden ${
-                  currentImage === i ? 'w-16' : 'w-8 opacity-20 group-hover:opacity-40'
+                <div className={`h-1.5 transition-all duration-700 rounded-full bg-white/20 relative overflow-hidden ${
+                  currentImage === i ? 'w-24' : 'w-8 hover:bg-white/40'
                 }`}>
                   {currentImage === i && (
                     <motion.div 
-                      layoutId="activeIndicator"
-                      className="absolute inset-0 bg-brand-accent shadow-[0_0_15px_#b57edc]"
+                      key={`progress-${i}`}
+                      initial={{ width: "0%" }}
+                      animate={{ width: "100%" }}
+                      transition={{ duration: 8, ease: "linear" }}
+                      className="h-full bg-brand-accent shadow-[0_0_15px_#b57edc]"
                     />
                   )}
                 </div>
@@ -260,6 +277,70 @@ const Home = () => {
               Explore Our Story <span className="w-12 h-0.5 bg-brand-accent group-hover:w-16 transition-all" />
             </Link>
           </motion.div>
+        </div>
+      </section>
+
+      {/* Morning Dew Preview */}
+      <section className="py-24 px-8 bg-brand-primary relative overflow-hidden">
+        <div className="absolute inset-0 opacity-[0.05] pointer-events-none">
+          <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-brand-accent rounded-full blur-[160px]" />
+        </div>
+        
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="bg-white/5 border border-white/10 rounded-[3rem] p-10 md:p-20 overflow-hidden relative">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+              <div className="lg:col-span-7 space-y-10">
+                <div className="space-y-6">
+                  <div className="inline-flex items-center gap-3 bg-brand-accent/20 border border-brand-accent/30 px-6 py-2 rounded-full">
+                    <CloudSun className="text-brand-accent w-4 h-4" />
+                    <span className="text-brand-accent text-[10px] font-black uppercase tracking-[0.4em]">Morning Dew Today</span>
+                  </div>
+                  <h2 className="text-5xl md:text-7xl font-black text-white tracking-tighter uppercase leading-tight">
+                    {latestDevotional.subtitle}
+                  </h2>
+                  <p className="text-xl text-white/60 leading-relaxed font-medium line-clamp-3">
+                    {latestDevotional.content[0]}
+                  </p>
+                </div>
+                
+                <div className="flex flex-wrap items-center gap-8 pt-8 border-t border-white/10">
+                  <div className="flex items-center gap-3">
+                    <Calendar className="text-brand-accent w-5 h-5" />
+                    <span className="text-white/60 text-xs font-black uppercase tracking-widest">{latestDevotional.date}</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <BookOpen className="text-brand-accent w-5 h-5" />
+                    <span className="text-white/60 text-xs font-black uppercase tracking-widest">Apostolic Insight</span>
+                  </div>
+                </div>
+
+                <Link 
+                  to="/devotional" 
+                  className="inline-flex items-center gap-6 bg-brand-accent text-brand-primary px-12 py-6 rounded-2xl font-black text-xs uppercase tracking-[0.3em] transition-all hover:bg-white hover:-translate-y-2 group"
+                >
+                  Read Full Information <ArrowRight size={18} className="group-hover:translate-x-2 transition-all" />
+                </Link>
+              </div>
+
+              <div className="lg:col-span-5 relative">
+                <div className="relative rounded-[2rem] overflow-hidden aspect-square">
+                  <img 
+                    src="https://images.unsplash.com/photo-1544717305-27a734ef1904?q=80&w=1000&auto=format&fit=crop" 
+                    alt="Devotional" 
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand-primary/80 to-transparent" />
+                  <div className="absolute bottom-8 left-8 p-6 glass inline-block">
+                     <p className="text-brand-primary font-black uppercase tracking-widest text-[9px] mb-2">Author</p>
+                     <p className="text-brand-primary font-black text-sm uppercase">{latestDevotional.author}</p>
+                  </div>
+                </div>
+                
+                <div className="absolute -top-10 -right-10 w-32 h-32 bg-brand-accent/20 rounded-full blur-3xl animate-pulse" />
+                <Quote className="absolute -bottom-8 -right-8 text-brand-accent opacity-20" size={120} />
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -433,14 +514,14 @@ const Home = () => {
         <div className="max-w-7xl mx-auto relative z-10 text-center space-y-20">
           <div className="space-y-4">
             <h2 className="text-5xl font-black text-white tracking-tighter">Gather With Us</h2>
-            <p className="text-white/40 text-sm font-bold uppercase tracking-[0.3em]">Local & Global Service Times</p>
+            <p className="text-white/40 text-sm font-bold uppercase tracking-[0.3em]">Weekly Encounters of Power</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
-              { day: "Sunday", time: "08:00 & 10:30 AM", title: "Worship Service", color: "bg-brand-glow" },
-              { day: "Wednesday", time: "05:30 PM", title: "Midweek Teaching", color: "bg-white" },
-              { day: "Friday", time: "06:00 AM", title: "Corporate Prayer", color: "bg-brand-soft" }
+              { day: "Sunday", time: "08:30 AM (GMT +1)", title: "Sunday Service", icon: <Calendar className="text-brand-accent" /> },
+              { day: "Wednesday", time: "05:30 PM", title: "Life Application Service", icon: <Target className="text-brand-glow" /> },
+              { day: "Annual Vigil", time: "9:00 PM", title: "Supply of the Spirit", icon: <Zap className="text-brand-accent" /> }
             ].map((service, i) => (
               <motion.div
                 key={i}
@@ -451,6 +532,9 @@ const Home = () => {
                 className="group p-1 bg-white/5 border border-white/10 rounded-[2.5rem] hover:border-brand-accent transition-all"
               >
                 <div className="bg-white/5 p-12 rounded-[2.2rem] space-y-6">
+                  <div className="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    {service.icon}
+                  </div>
                   <span className="text-brand-accent font-black uppercase tracking-[0.4em] text-[10px] block">{service.day}s</span>
                   <h3 className="text-3xl font-black text-white tracking-tighter">{service.title}</h3>
                   <div className="inline-block px-6 py-2 bg-brand-accent/20 border border-brand-accent/30 rounded-full text-brand-accent font-black text-xs">
@@ -498,7 +582,7 @@ const Home = () => {
                     <p className="text-[10px] font-black uppercase tracking-widest text-brand-accent">{event.location}</p>
                     <h3 className="text-xl font-black text-brand-primary tracking-tight line-clamp-2">{event.title}</h3>
                   </div>
-                  <Link to="/events" className="flex items-center justify-center py-4 rounded-2xl bg-brand-bg border border-brand-border font-black text-[10px] uppercase tracking-[0.2em] text-brand-primary hover:bg-brand-primary hover:text-white transition-all">
+                  <Link to={`/events/${event.id}`} className="flex items-center justify-center py-4 rounded-2xl bg-brand-bg border border-brand-border font-black text-[10px] uppercase tracking-[0.2em] text-brand-primary hover:bg-brand-primary hover:text-white transition-all">
                     Event Details
                   </Link>
                 </div>

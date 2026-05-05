@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
+import { Link } from 'react-router-dom';
 import { Heart, CreditCard, Landmark, Gift, ArrowRight, ShieldCheck, Zap, Globe, Users, Church as ChurchIcon, Crown, Stars } from 'lucide-react';
 
 const Give = () => {
@@ -39,7 +40,7 @@ const Give = () => {
       </section>
 
       {/* Giving Areas - More descriptive and unique */}
-      <section className="py-32 px-8 max-w-7xl mx-auto -mt-24 relative z-20">
+      <section id="giving-options" className="py-32 px-8 max-w-7xl mx-auto -mt-24 relative z-20">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-32">
           {[
             { 
@@ -78,17 +79,88 @@ const Give = () => {
               <div className="w-14 h-14 bg-brand-bg rounded-2xl flex items-center justify-center mb-8 text-brand-primary group-hover:scale-110 transition-transform">
                 {option.icon}
               </div>
-              <h3 className="text-lg font-black text-brand-primary tracking-tight mb-4">{option.title}</h3>
+              <h3 className="text-lg font-black text-brand-primary tracking-tight mb-4 uppercase">{option.title}</h3>
               <p className="text-xs text-brand-primary/50 font-medium leading-relaxed mb-8">{option.desc}</p>
-              <button className="mt-auto w-full py-4 rounded-xl bg-brand-primary text-white font-black text-[10px] uppercase tracking-[0.2em] transform transition-all group-hover:bg-brand-accent shadow-lg shadow-brand-primary/10">
-                Give Online
-              </button>
+              <a href="#bank-details" className="mt-auto w-full py-4 rounded-xl bg-brand-primary text-white font-black text-[10px] uppercase tracking-[0.2em] text-center transform transition-all group-hover:bg-brand-accent shadow-lg shadow-brand-primary/10">
+                Give Now
+              </a>
             </motion.div>
           ))}
         </div>
 
+        {/* Partnership Focus Section */}
+        <div id="partnership" className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-32 items-stretch">
+          <motion.div 
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="lg:col-span-8 bg-white border border-brand-border p-12 lg:p-20 rounded-[3.5rem] relative overflow-hidden"
+          >
+            <div className="absolute top-0 right-0 p-12 opacity-[0.03] pointer-events-none">
+              <Users size={400} className="-mr-32 -mt-32" />
+            </div>
+            
+            <div className="relative z-10 space-y-10">
+              <div className="space-y-4">
+                <span className="text-brand-accent font-black uppercase tracking-[0.4em] text-[10px]">Strategic Alliance</span>
+                <h2 className="text-5xl md:text-6xl font-black text-brand-primary tracking-tighter leading-tight font-display">Partner With <br /> The <span className="text-brand-accent">Mandate.</span></h2>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div className="space-y-6">
+                  <p className="text-brand-primary/60 text-lg leading-relaxed font-medium">
+                    Partnership is not just giving; it's a commitment to stand with the mandate of God in Newbreed Worship Centre. It's an identification with the grace and the dimensions of Spirit released through this house.
+                  </p>
+                  <p className="text-brand-primary/60 text-lg leading-relaxed font-medium">
+                    When you partner with us, you become a vital part of every life transformed, every soul saved, and every prophetic dimension established across the globe.
+                  </p>
+                </div>
+                <div className="space-y-6">
+                  <h4 className="text-brand-primary font-black uppercase tracking-[0.2em] text-xs pb-4 border-b border-brand-bg">Why Partner?</h4>
+                  {[
+                    "Direct access to apostolic grace and prayers.",
+                    "Sustaining the Global Broadcast reach.",
+                    "Supporting the physical infrastructure of the Mandate.",
+                    "Empowering our various departments and fellowships."
+                  ].map((benefit, i) => (
+                    <div key={i} className="flex items-start gap-4">
+                      <div className="w-5 h-5 rounded-full bg-brand-accent/20 flex items-center justify-center text-brand-accent shrink-0 mt-1">
+                        <Zap size={12} />
+                      </div>
+                      <p className="text-brand-primary/80 text-sm font-bold">{benefit}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          <motion.div 
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="lg:col-span-4 bg-brand-primary text-white p-12 lg:p-16 rounded-[3.5rem] shadow-2xl flex flex-col justify-center relative overflow-hidden"
+          >
+            <div className="absolute top-0 right-0 p-8 opacity-[0.05]">
+              <Heart size={240} className="-mr-16 -mt-16" />
+            </div>
+            <div className="relative z-10 space-y-8">
+              <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center text-brand-accent">
+                <ShieldCheck size={32} />
+              </div>
+              <h2 className="text-4xl font-black tracking-tighter leading-tight font-display italic">"One can chase a thousand, but two can put ten thousand to flight."</h2>
+              <p className="text-white/60 font-medium leading-relaxed">
+                Become a Monthly Financial Partner today and help us reach the ends of the earth with the Word of Power.
+              </p>
+              <Link to="/partnership" className="w-full py-5 rounded-2xl bg-brand-accent text-brand-primary font-black text-xs uppercase tracking-[0.3em] hover:bg-white hover:scale-105 transition-all shadow-xl shadow-brand-accent/20 flex items-center justify-center">
+                Become a Partner
+              </Link>
+            </div>
+          </motion.div>
+        </div>
+
         {/* Impact Visualizer */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center mb-32">
+        <div id="impact" className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center mb-32">
           <div className="lg:col-span-12 text-center mb-16 space-y-4">
             <span className="text-brand-accent font-black uppercase tracking-[0.4em] text-[10px]">The Fruit of Your Giving</span>
             <h2 className="text-5xl font-black text-brand-primary tracking-tighter">Your Seed at Work</h2>
@@ -129,12 +201,12 @@ const Give = () => {
                   "Partnering with Newbreed is more than a donation; it's a strategic alliance for the advancement of the Kingdom. Together, we are establishing a culture of excellence and power."
                 </p>
                 <div className="pt-6 border-t border-white/10">
-                  <div className="flex items-center gap-4 group cursor-pointer">
+                  <Link to="/partnership" className="flex items-center gap-4 group cursor-pointer">
                     <div className="w-10 h-10 rounded-full bg-brand-accent flex items-center justify-center text-brand-primary group-hover:scale-110 transition-transform">
                       <ArrowRight size={20} />
                     </div>
                     <span className="text-[10px] font-black uppercase tracking-[0.2em] group-hover:text-brand-accent transition-colors">Partner With Us Today</span>
-                  </div>
+                  </Link>
                 </div>
               </div>
             </div>

@@ -14,6 +14,8 @@ const Gallery = lazy(() => import('./pages/Gallery'));
 const Devotional = lazy(() => import('./pages/Devotional'));
 const Departments = lazy(() => import('./pages/Departments'));
 const Fellowships = lazy(() => import('./pages/Fellowships'));
+const EventDetail = lazy(() => import('./pages/EventDetail'));
+const Partnership = lazy(() => import('./pages/Partnership'));
 
 // Simple loading fallback
 const LoadingFallback = () => (
@@ -34,7 +36,9 @@ export default function App() {
             <Route path="/join-fellowship" element={<Fellowships />} />
             <Route path="/media" element={<Media />} />
             <Route path="/events" element={<Events />} />
+            <Route path="/events/:id" element={<EventDetail />} />
             <Route path="/give" element={<Give />} />
+            <Route path="/partnership" element={<Partnership />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/live" element={<Live />} />
             <Route path="/gallery" element={<Gallery />} />

@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { Calendar, Clock, MapPin, ArrowRight, Share2, Ticket } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { events } from '../mockData';
 
 const Events = () => {
@@ -46,18 +47,26 @@ const Events = () => {
             </div>
             <div className="md:col-span-7 p-12 lg:p-16 flex flex-col justify-center space-y-10">
               <div className="space-y-6">
-                <div className="flex items-center gap-4">
-                  {events[0].date.includes(',') ? (
-                    <div className="px-5 py-2 bg-brand-glow border border-brand-soft rounded-2xl">
-                      <span className="text-brand-primary font-black text-2xl tracking-tighter">{events[0].date.split(' ')[1]?.replace(',', '')}</span>
-                      <span className="text-[10px] font-black uppercase tracking-widest text-brand-secondary ml-3">{events[0].date.split(' ')[0]}</span>
+                <div className="flex items-center gap-6">
+                  {/* Date Badge */}
+                  <div className="flex items-center bg-white border border-brand-border rounded-2xl overflow-hidden shadow-lg">
+                    <div className="bg-brand-accent p-3 flex items-center justify-center">
+                      <Calendar className="text-white" size={20} />
                     </div>
-                  ) : (
-                    <div className="px-5 py-2 bg-brand-glow border border-brand-soft rounded-2xl">
-                      <span className="text-brand-primary font-black text-sm tracking-tighter uppercase">{events[0].date}</span>
+                    <div className="px-5 py-2 flex flex-col items-center justify-center min-w-[80px]">
+                      {events[0].date.includes(',') ? (
+                        <>
+                          <span className="text-[10px] font-black uppercase tracking-widest text-brand-secondary leading-none mb-1">{events[0].date.split(' ')[0]}</span>
+                          <span className="text-2xl font-black text-brand-primary tracking-tighter leading-none">{events[0].date.split(' ')[1]?.replace(',', '')}</span>
+                        </>
+                      ) : (
+                        <span className="text-[10px] font-black uppercase tracking-widest text-brand-primary leading-none uppercase">{events[0].date.split(' ').slice(0, 2).join(' ')}</span>
+                      )}
                     </div>
-                  )}
-                  <span className="text-brand-accent font-black uppercase tracking-[0.3em] text-[10px] bg-brand-accent/10 px-4 py-1.5 rounded-full">{events[0].category || 'Kingdom Mandate'}</span>
+                  </div>
+                  <span className="text-brand-accent font-black uppercase tracking-[0.3em] text-[10px] bg-brand-accent/10 px-6 py-2 rounded-full border border-brand-accent/20">
+                    {events[0].category || 'Kingdom Mandate'}
+                  </span>
                 </div>
                 <h2 className="text-4xl md:text-5xl font-black text-brand-primary leading-tight tracking-tighter">{events[0].title}</h2>
                 <p className="text-brand-primary/60 leading-relaxed font-medium text-lg">
@@ -83,9 +92,9 @@ const Events = () => {
               </div>
 
               <div className="flex gap-4">
-                <button className="flex-1 flex items-center justify-center gap-3 bg-brand-primary text-white py-5 rounded-2xl font-black text-[10px] uppercase tracking-[0.2em] shadow-xl shadow-brand-primary/20 transition-all hover:-translate-y-1">
+                <Link to={`/events/${events[0].id}`} className="flex-1 flex items-center justify-center gap-3 bg-brand-primary text-white py-5 rounded-2xl font-black text-[10px] uppercase tracking-[0.2em] shadow-xl shadow-brand-primary/20 transition-all hover:-translate-y-1">
                   Secure Your Spot <Ticket size={18} />
-                </button>
+                </Link>
               </div>
             </div>
           </div>
@@ -113,16 +122,26 @@ const Events = () => {
             >
               <div className="relative h-72 rounded-[2rem] overflow-hidden">
                 <img src={event.image} alt={event.title} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" />
-                <div className="absolute top-6 left-6 glass px-5 py-3 rounded-2xl text-center min-w-[80px]">
-                  {event.date.includes(',') ? (
-                    <>
-                      <span className="block text-[10px] font-black uppercase tracking-widest text-brand-secondary">{event.date.split(' ')[0]}</span>
-                      <span className="block text-2xl font-black text-brand-primary tracking-tighter">{event.date.split(' ')[1]?.replace(',', '')}</span>
-                    </>
-                  ) : (
-                    <span className="block text-[9px] font-black uppercase tracking-widest text-brand-primary/60">{event.date}</span>
-                  )}
+                
+                {/* Visual Date Badge */}
+                <div className="absolute top-6 left-6 flex items-stretch bg-white rounded-2xl overflow-hidden shadow-2xl border border-white/20">
+                  <div className="bg-brand-accent px-3 flex items-center justify-center">
+                    <Calendar className="text-white" size={16} />
+                  </div>
+                  <div className="px-4 py-2 flex flex-col items-center justify-center bg-white/95 backdrop-blur-md min-w-[70px]">
+                    {event.date.includes(',') ? (
+                      <>
+                        <span className="block text-[8px] font-black uppercase tracking-[0.2em] text-brand-secondary leading-none mb-1">{event.date.split(' ')[0]}</span>
+                        <span className="block text-xl font-black text-brand-primary tracking-tighter leading-none">{event.date.split(' ')[1]?.replace(',', '')}</span>
+                      </>
+                    ) : (
+                      <span className="block text-[9px] font-black uppercase tracking-[0.1em] text-brand-primary leading-tight font-black uppercase max-w-[60px] text-center">
+                        {event.date.split(' ').slice(0, 2).join(' ')}
+                      </span>
+                    )}
+                  </div>
                 </div>
+
                 <div className="absolute top-6 right-6">
                   <span className="bg-brand-accent/90 backdrop-blur-md text-white font-black uppercase tracking-widest text-[8px] px-3 py-1.5 rounded-full shadow-lg">
                     {event.category || 'MANDATE'}
@@ -145,9 +164,9 @@ const Events = () => {
                   </div>
                 </div>
 
-                <button className="w-full py-4 rounded-2xl bg-brand-bg border border-brand-border font-black text-[10px] uppercase tracking-[0.2em] text-brand-primary hover:bg-brand-primary hover:text-white transition-all flex items-center justify-center gap-3 group/btn">
+                <Link to={`/events/${event.id}`} className="w-full py-4 rounded-2xl bg-brand-bg border border-brand-border font-black text-[10px] uppercase tracking-[0.2em] text-brand-primary hover:bg-brand-primary hover:text-white transition-all flex items-center justify-center gap-3 group/btn">
                   View Details <ArrowRight size={14} className="group-hover/btn:translate-x-2 transition-transform" />
-                </button>
+                </Link>
               </div>
             </motion.div>
           ))}

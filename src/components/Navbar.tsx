@@ -39,6 +39,7 @@ const Navbar = () => {
       name: 'Connect',
       links: [
         { name: 'Give', path: '/give' },
+        { name: 'Partner', path: '/partnership' },
         { name: 'Contact', path: '/contact' },
       ]
     }
